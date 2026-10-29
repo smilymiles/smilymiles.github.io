@@ -1,0 +1,6 @@
+{
+  "clientMonitor": "enabled in the game build",
+  "backendAction": "report and moderator review",
+  "automaticBans": false,
+  "fileDeletion": false
+}

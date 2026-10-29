@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Project Xander anti-cheat status and enforcement policy.">
+    <title>Project Xander — Anti-Cheat</title>
+    <link rel="stylesheet" href="site.css">
+  </head>
+  <body>
+    <main>
+      <p class="eyebrow">PROJECT XANDER</p>
+      <h1>Anti-Cheat Status</h1>
+      <p class="lede">Client telemetry is account-bound and sent to the hosted PlayFab gateway. The client monitor never deletes files, saves, cosmetics, or game assets.</p>
+
+      <section aria-labelledby="state-heading">
+        <h2 id="state-heading">Current policy</h2>
+        <dl>
+          <div><dt>Client monitor</dt><dd id="client-monitor">loading…</dd></div>
+          <div><dt>Backend action</dt><dd id="backend-action">loading…</dd></div>
+          <div><dt>Automatic bans</dt><dd id="automatic-bans">loading…</dd></div>
+          <div><dt>File deletion</dt><dd id="file-deletion">loading…</dd></div>
+        </dl>
+      </section>
+
+      <section>
+        <h2>What gets checked</h2>
+        <ul>
+          <li>Sustained impossible local Rigidbody velocity.</li>
+          <li>Authenticated session ownership before a report is accepted.</li>
+          <li>Rate-limited reports and a server-owned strike counter.</li>
+        </ul>
+      </section>
+
+      <p class="footnote">This page is public status information only. It contains no PlayFab secret, session ticket, moderation data, or enforcement endpoint.</p>
+    </main>
+    <script>
+      fetch("anti-cheat-status.json", { cache: "no-store" })
+        .then(function (response) { return response.json(); })
+        .then(function (status) {
+          document.getElementById("client-monitor").textContent = status.clientMonitor;
+          document.getElementById("backend-action").textContent = status.backendAction;
+          document.getElementById("automatic-bans").textContent = status.automaticBans ? "enabled" : "disabled";
+          document.getElementById("file-deletion").textContent = status.fileDeletion ? "enabled" : "disabled";
+        })
+        .catch(function () {
+          document.getElementById("client-monitor").textContent = "status file unavailable";
+        });
+    </script>
+  </body>
+</html>
